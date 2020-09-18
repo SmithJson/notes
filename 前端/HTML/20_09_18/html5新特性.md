@@ -10,6 +10,9 @@
 	* [地理（geolocation）API](#地理geolocationapi)
 	* [本地存储](#本地存储)
 	* [webworker](#webworker)
+	* [websocket](#websocket)
+* [H5 兼容性处理](#h5-兼容性处理)
+* [如何区分 HTML 和 HTML5](#如何区分-html-和-html5)
 
 <!-- vim-markdown-toc -->
 
@@ -58,12 +61,6 @@ h5 则专门推出来语义化标签（如：header、footer、aside、arcticle�
 	+ .rect(x, y, width, height)：绘制矩形
 	+ .arc(x, y, radius, startAngle, endAngle, anticlockwise)：绘制圆形, anticlockwise 为 true 逆时针，false 为顺时针
 
-> 	4. 音频和视频（audio and video)
-> 5. 地理（geolocation) API
-> 6. 本地存储（localStorage and sessionStorage)
-> 7. 表单控件、type属性新类型
-> 8. 新技术（webworker、websocket and geolocation)
-
 ### 音频和视频 API
 
 - API
@@ -95,7 +92,15 @@ h5 通过 localStorage 和 sessionStorage 对象实现本地缓存，localStorag
 
 ### webworker
 
-在主线程创建一个 worker 线程去执行一些事情，实现 js 的并发操作。
+在主线程创建一个 worker 线程去执行一些事情，实现 js 的并发操作，通过 new Worker() 创建 worker
+	
+- API：
+	+ open()：请求连接
+	+ close()：关闭连接
+	+ postMessage(value)：发送消息
+	+ onMessage：监听消息回调，e.data获取消息内容
+	+ onopen：请求连接成功回调
+	+ onclose：请求连接关闭回调
 
 ```javascript
 // main.js
@@ -124,3 +129,39 @@ this.onmessage = function (e) {
     // this.close(); // worker自动停止工作
 };
 ```
+
+### websocket
+
+适用于即时通讯的连接，通过 new WebSocket("ws://url") 创建连接
+
+- API
+	+ send(value)：发送消息
+	+ onMessage：监听消息回调
+	+ onopen()
+	+ onclose()
+
+```javascript
+// Create WebSocket connection.
+const socket = new WebSocket('ws://localhost:8080');
+
+// Connection opened
+socket.addEventListener('open', function (event) {
+    socket.send('Hello Server!');
+});
+
+// Listen for messages
+socket.addEventListener('message', function (event) {
+    console.log('Message from server ', event.data);
+});
+```
+
+## H5 兼容性处理
+
+1. 使用 DOM 操作自己创建这些标签
+2. 使用封装的 js 库，如 html5shiv.js
+
+## 如何区分 HTML 和 HTML5
+
+1. 文档类型声明
+2. 结构语义
+
