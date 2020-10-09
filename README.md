@@ -17,6 +17,7 @@
 	* [link和@import区别](#link和import区别)
 	* [flex 弹性盒子](#flex-弹性盒子)
 	* [CSS盒子模型&BFC.md](#css盒子模型bfcmd)
+	* [transition & animation 的区别](#transition-animation-的区别)
 * [数据结构](#数据结构)
 	* [大话数据结构-绪论](#大话数据结构-绪论)
 	* [大话数据结构-算法](#大话数据结构-算法)
@@ -41,6 +42,7 @@
 ### [link和@import区别](./前端/CSS/20_09_30/link和@import区别.md)
 ### [flex 弹性盒子](./前端/CSS/20_10_05/Flex弹性盒子.md)
 ### [CSS盒子模型&BFC.md](./前端/CSS/20_10_06/CSS盒子模型&BFC.md)
+### [transition & animation 的区别](./前端/CSS/20_10_09/transition&animation的区别.md)
 
 ## 数据结构
 ### [大话数据结构-绪论](./数据结构/20_09_15/1.大话数据结构-绪论.md)
