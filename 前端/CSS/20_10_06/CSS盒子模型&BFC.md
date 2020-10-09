@@ -26,7 +26,7 @@
 
 宽度计算：   
 
-width 就是 content 大小，盒模型的空间大小 = content（width） + padding + border + margin
+width 只包含 content ，盒模型的空间大小 = content（width） + padding + border + margin
 
 ![标准盒子模型](http://img.smyhvae.com/2015-10-03-css-27.jpg) 
 
