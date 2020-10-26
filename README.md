@@ -25,6 +25,7 @@
 	* [em和px的区别](#em和px的区别)
 	* [顶部底部固定 中间自适应](#顶部底部固定-中间自适应)
 	* [inherit&initial&unset三者区别](#inheritinitialunset三者区别)
+	* [CSS单行省略和多行省略](#css单行省略和多行省略)
 * [Javascript](#javascript)
 	* [js常见手撕代码题](#js常见手撕代码题)
 * [数据结构](#数据结构)
@@ -61,6 +62,7 @@
 ### [em和px的区别](./前端/CSS/20_10_19/em和px的区别.md)
 ### [顶部底部固定 中间自适应](./前端/CSS/20_10_20/顶部底部固定_中间自适应.md)
 ### [inherit&initial&unset三者区别](./前端/CSS/20_10_25/inherit&initial&unset三者区别.md)
+### [CSS单行省略和多行省略](./前端/CSS/20_10_26/CSS单行省略和多行省略.md)
 
 ## Javascript
 ### [js常见手撕代码题](./前端/Javascript/20_10_23/js常见手撕代码题.md)
