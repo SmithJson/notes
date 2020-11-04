@@ -385,7 +385,7 @@ let obj = {
         return '我是一函数'
     },
     date: new Date(0),
-    reg: new RegExp('/我是一个正则/ig'),
+    reg: new RegExp('/ 我是一个正则 /ig'),
     [Symbol('1')]: 1,
 };
 
