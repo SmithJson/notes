@@ -111,7 +111,7 @@ PANGU_DISABLE
 
 ## 算法
 
-### [Leetcode 刷题笔记](./算法/20_11_06/Leetcode.md)
+### [Leetcode 刷题笔记](./算法/20_11_06/Leetcode刷题笔记.md)
 
 ## 面试题
 
