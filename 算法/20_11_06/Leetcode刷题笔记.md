@@ -32,18 +32,21 @@
 		* [方法一：Hashmap](#方法一hashmap-1)
 		* [方法二：快慢指针](#方法二快慢指针)
 * [中等难度](#中等难度)
-	* [15. 三数之和](#15-三数之和)
+	* [18. 四数之和](#18-四数之和)
 		* [题目描述](#题目描述-8)
+		* [方法：将四数之和转换为三数之和](#方法将四数之和转换为三数之和)
+	* [15. 三数之和](#15-三数之和)
+		* [题目描述](#题目描述-9)
 		* [方法：双指针](#方法双指针)
 	* [24. 两两交换链表中的节点](#24-两两交换链表中的节点)
-		* [题目描述](#题目描述-9)
-	* [剑指 Offer 35. 复杂链表的复制](#剑指-offer-35-复杂链表的复制)
 		* [题目描述](#题目描述-10)
+	* [剑指 Offer 35. 复杂链表的复制](#剑指-offer-35-复杂链表的复制)
+		* [题目描述](#题目描述-11)
 		* [方法一：迭代](#方法一迭代)
 		* [方法二：递归](#方法二递归)
 * [困难难度](#困难难度)
 	* [剑指 Offer 59 - I. 滑动窗口的最大值](#剑指-offer-59-i-滑动窗口的最大值)
-		* [题目描述](#题目描述-11)
+		* [题目描述](#题目描述-12)
 		* [方法：双向队列（队列头永远保存最大元素索引）](#方法双向队列队列头永远保存最大元素索引)
 
 <!-- vim-markdown-toc -->
@@ -469,6 +472,69 @@ var hasCycle = function (head) {
 ```
 
 ## 中等难度
+
+### 18. 四数之和
+
+#### 题目描述
+
+```
+给定一个包含 n 个整数的数组 nums 和一个目标值 target，判断 nums 中是否存在四个元素 a，b，c 和 d ，
+使得 a + b + c + d 的值与 target 相等？找出所有满足条件且不重复的四元组。
+
+注意：
+
+答案中不可以包含重复的四元组。
+
+示例：
+
+给定数组 nums = [1, 0, -1, 0, -2, 2]，和 target = 0。
+
+满足要求的四元组集合为：
+[
+  [-1,  0, 0, 1],
+  [-2, -1, 1, 2],
+  [-2,  0, 0, 2]
+]
+```
+
+#### 方法：将四数之和转换为三数之和
+
+```javascript
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[][]}
+ */
+var fourSum = function (nums, target) {
+  if (nums.length < 4) return [];
+  let result = [];
+  nums.sort((a, b) => a - b);
+  for (let i = 0, len = nums.length; i < len; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
+    let new_target = target - nums[i];
+    for (let j = i + 1; j < len; j++) {
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
+      let l = j + 1;
+      let r = len - 1;
+      while (l < r) {
+        let sum = nums[j] + nums[l] + nums[r];
+        if (sum < new_target) {
+          l += 1;
+        } else if (sum > new_target) {
+          r -= 1;
+        } else {
+          result.push([nums[i], nums[j], nums[l], nums[r]]);
+          while (nums[l] === nums[l + 1]) l += 1;
+          while (nums[r] === nums[r - 1]) r -= 1;
+          l += 1;
+          r -= 1;
+        }
+      }
+    }
+  }
+  return result;
+};
+```
 
 ### 15. 三数之和
 
