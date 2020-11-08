@@ -32,21 +32,36 @@
 		* [方法一：Hashmap](#方法一hashmap-1)
 		* [方法二：快慢指针](#方法二快慢指针)
 * [中等难度](#中等难度)
-	* [18. 四数之和](#18-四数之和)
+	* [50. Pow(x, n)](#50-powx-n)
 		* [题目描述](#题目描述-8)
+		* [方法一：递归](#方法一递归)
+		* [方法二：迭代](#方法二迭代)
+	* [236. 二叉树的最近公共祖先](#236-二叉树的最近公共祖先)
+		* [题目描述](#题目描述-9)
+		* [方法：递归](#方法递归)
+	* [235. 二叉搜索树的最近公共祖先](#235-二叉搜索树的最近公共祖先)
+		* [题目描述](#题目描述-10)
+		* [方法：递归](#方法递归-1)
+		* [方法二：迭代](#方法二迭代-1)
+	* [98. 验证二叉搜索树](#98-验证二叉搜索树)
+		* [题目描述](#题目描述-11)
+		* [方法一：递归 + 中序遍历](#方法一递归-中序遍历)
+		* [方法二：设置最小、最大值](#方法二设置最小最大值)
+	* [18. 四数之和](#18-四数之和)
+		* [题目描述](#题目描述-12)
 		* [方法：将四数之和转换为三数之和](#方法将四数之和转换为三数之和)
 	* [15. 三数之和](#15-三数之和)
-		* [题目描述](#题目描述-9)
+		* [题目描述](#题目描述-13)
 		* [方法：双指针](#方法双指针)
 	* [24. 两两交换链表中的节点](#24-两两交换链表中的节点)
-		* [题目描述](#题目描述-10)
+		* [题目描述](#题目描述-14)
 	* [剑指 Offer 35. 复杂链表的复制](#剑指-offer-35-复杂链表的复制)
-		* [题目描述](#题目描述-11)
+		* [题目描述](#题目描述-15)
 		* [方法一：迭代](#方法一迭代)
 		* [方法二：递归](#方法二递归)
 * [困难难度](#困难难度)
 	* [剑指 Offer 59 - I. 滑动窗口的最大值](#剑指-offer-59-i-滑动窗口的最大值)
-		* [题目描述](#题目描述-12)
+		* [题目描述](#题目描述-16)
 		* [方法：双向队列（队列头永远保存最大元素索引）](#方法双向队列队列头永远保存最大元素索引)
 
 <!-- vim-markdown-toc -->
@@ -472,6 +487,246 @@ var hasCycle = function (head) {
 ```
 
 ## 中等难度
+
+### 50. Pow(x, n)
+
+#### 题目描述
+
+```
+实现 pow(x, n) ，即计算 x 的 n 次幂函数。
+
+示例 1:
+
+输入：2.00000, 10
+输出：1024.00000
+示例 2:
+
+输入：2.10000, 3
+输出：9.26100
+示例 3:
+
+输入：2.00000, -2
+输出：0.25000
+解释：2-2 = 1/22 = 1/4 = 0.25
+```
+
+#### 方法一：递归
+
+```javascript
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+  if (n === 0) return 1;
+  if (n < 0) return 1 / myPow(x, -n);
+  if (n & 1) return x * myPow(x, n - 1);
+  return myPow(x * x, n / 2);
+};
+```
+
+#### 方法二：迭代
+
+```javascript
+/**
+ * @param {number} x
+ * @param {number} n
+ * @return {number}
+ */
+var myPow = function (x, n) {
+  if (n < 0) {
+    x = 1 / x;
+    n *= -1;
+  }
+  let pow = 1;
+  while (n) {
+    if (n & 1) pow *= x;
+    x *= x;
+    n = n / 2;
+  }
+  return pow;
+};
+```
+
+### 236. 二叉树的最近公共祖先
+
+#### 题目描述
+
+```
+给定一个二叉树，找到该树中两个指定节点的最近公共祖先。
+
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉树：root = [3,5,1,6,2,0,8,null,null,7,4]
+
+示例 1:
+
+输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+输出：3
+解释：节点 5 和节点 1 的最近公共祖先是节点 3。
+
+示例 2:
+
+输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+输出：5
+解释：节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身
+```
+
+#### 方法：递归
+
+```javascript
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+  if (root === null) return root;
+  if (root === p || root === q) return root;
+  let l = lowestCommonAncestor(root.left, p, q);
+  let r = lowestCommonAncestor(root.right, p, q);
+  if (l && r) return root;
+  return l || r;
+};
+```
+
+### 235. 二叉搜索树的最近公共祖先
+
+#### 题目描述
+
+```
+给定一个二叉搜索树，找到该树中两个指定节点的最近公共祖先。
+百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，
+满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”
+
+例如，给定如下二叉搜索树：root = [6,2,8,0,4,7,9,null,null,3,5]
+
+示例 1:
+
+输入：root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+输出：6
+解释：节点 2 和节点 8 的最近公共祖先是 6。
+
+示例 2:
+
+输入：root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+输出：2
+解释：节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
+```
+
+#### 方法：递归
+
+```javascript
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} p
+ * @param {TreeNode} q
+ * @return {TreeNode}
+ */
+var lowestCommonAncestor = function (root, p, q) {
+  if (root === null) return root;
+  if (p.val < root.val && q.val < root.val) {
+    return lowestCommonAncestor(root.left, p, q);
+  }
+  if (p.val > root.val && q.val > root.val) {
+    return lowestCommonAncestor(root.right, p, q);
+  }
+  return root;
+};
+```
+
+#### 方法二：迭代
+
+```javascript
+var lowestCommonAncestor = function (root, p, q) {
+  while (root) {
+    if (p.val < root.val && root.val > q.val) root = root.left;
+    else if (p.val > root.val && root.val < q.val) root = root.right;
+    else return root;
+  }
+};
+```
+
+### 98. 验证二叉搜索树
+
+#### 题目描述
+
+```
+给定一个二叉树，判断其是否是一个有效的二叉搜索树。
+
+假设一个二叉搜索树具有如下特征：
+
+节点的左子树只包含小于当前节点的数。
+节点的右子树只包含大于当前节点的数。
+所有左子树和右子树自身必须也是二叉搜索树。
+
+示例 1:
+
+输入：
+    2
+   / \
+  1   3
+输出：true
+
+示例 2:
+
+输入：
+    5
+   / \
+  1   4
+     / \
+    3   6
+输出：false
+解释：输入为：[5,1,4,null,null,3,6]。
+     根节点的值为 5 ，但是其右子节点值为 4 。
+```
+
+#### 方法一：递归 + 中序遍历
+
+```javascript
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function (root) {
+  let pre = null;
+  function helper(root) {
+    if (root === null) return true;
+    if (!helper(root.left)) return false;
+    if (pre && pre.val >= root.val) return false;
+    pre = root;
+    return helper(root.right);
+  }
+  return helper(root);
+};
+```
+
+#### 方法二：设置最小、最大值
+
+```javascript
+var isValidBST = function (root) {
+  function helper(root, min, max) {
+    if (root === null) return true;
+    if (min != null && min >= root.val) return false;
+    if (max != null && max <= root.val) return false;
+    return (
+      helper(root.left, min, root.val) && helper(root.right, root.val, max)
+    );
+  }
+
+  return helper(root);
+};
+```
 
 ### 18. 四数之和
 
