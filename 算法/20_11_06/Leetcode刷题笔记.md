@@ -1972,7 +1972,7 @@ n 皇后问题研究的是如何将 n 个皇后放置在 n×n 的棋盘上，�
 解释：4 皇后问题存在两个不同的解法。
 ```
 
-- 方法：递归
+- 方法：DFS
 
 ```javascript
 /**
@@ -2020,6 +2020,32 @@ var solveNQueens = function (n) {
   dfs(0, []);
   return format(res);
 };
+```
+
+- 位运算
+
+```javascript
+function Nqueen(n) {
+  // write code here
+  let count = 0;
+  function dfs(row, cols, sum, sub) {
+    if (row >= n) {
+      count += 1;
+      return;
+    }
+    // 获取某一行的所有空位 1
+    let bits = ~(cols | sum | sub) & ((1 << n) - 1);
+    while (bits) {
+      // 获取最后一个 1
+      let p = -bits & bits;
+      dfs(row + 1, cols | p, (sum | p) << 1, (sub | p) >> 1);
+      // 删除最后一个 1
+      bits = bits & (bits - 1);
+    }
+  }
+  dfs(0, 0, 0, 0);
+  return count;
+}
 ```
 
 ### 剑指 Offer 59 - I. 滑动窗口的最大值
