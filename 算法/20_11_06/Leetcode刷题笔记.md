@@ -18,6 +18,7 @@
 	* [206. 反转链表](#206-反转链表)
 	* [141. 环形链表](#141-环形链表)
 * [中等难度](#中等难度)
+	* [19. 删除链表的倒数第 N 个节点](#19-删除链表的倒数第-n-个节点)
 	* [200. 岛屿数量](#200-岛屿数量)
 	* [22. 括号生成](#22-括号生成)
 	* [62. 不同路径](#62-不同路径)
@@ -909,6 +910,61 @@ var hasCycle = function (head) {
 ```
 
 ## 中等难度
+
+### 19. 删除链表的倒数第 N 个节点
+
+- 题目描述
+
+```
+给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
+
+示例：
+给定一个链表：1->2->3->4->5, 和 n = 2.
+当删除了倒数第二个节点后，链表变为 1->2->3->5.
+
+说明：
+给定的 n 保证是有效的。
+
+进阶：
+你能尝试使用一趟扫描实现吗？
+```
+
+- 方法一：双指针
+
+```javascript
+var removeNthFromEnd = function (head, n) {
+  let p = head;
+  let res = new ListNode(-1);
+  let q = res;
+  q.next = head;
+  for (let i = 0; i < n; i++) p = p.next;
+  while (p) {
+    q = q.next;
+    p = p.next;
+  }
+  q.next = q.next.next;
+  return res.next;
+};
+```
+
+- 方法二：len - n
+
+```javascript
+var removeNthFromEnd = function (head, n) {
+  let len = 0;
+  let p = head;
+  while (p) {
+    len++;
+    p = p.next;
+  }
+  let res = new ListNode(-1);
+  let q = res;
+  q.next = head;
+  for (let i = 0; i < len - n; i++) q = q.next;
+  q.next = q.next.next;
+  return res.next;
+};
+```
 
 ### 200. 岛屿数量
 

@@ -16,6 +16,7 @@
 * [new](#new)
 * [深克隆](#深克隆)
 * [Promise](#promise)
+* [flat](#flat)
 
 <!-- vim-markdown-toc -->
 
@@ -619,4 +620,20 @@ p.catch((reason) => {
 // }, (reason) => {
 // 	console.log("2-reject", reason);
 // });
+```
+
+## flat
+
+```javascript
+Array.prototype.myflat = function (n) {
+  if (n < 1) return [...this];
+  let res = [];
+
+  for (let i = 0; i < this.length; i++) {
+    if (typeof this[i] === "object") res.push(...this[i].myflat(n - 1));
+    else res.push(this[i]);
+  }
+
+  return res;
+};
 ```
